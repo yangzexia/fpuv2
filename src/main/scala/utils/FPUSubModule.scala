@@ -39,6 +39,7 @@ class TestFPUCtrl(depth_warp: Int, softThread: Int, SPIKE_OUTPUT: Boolean = fals
   val wvd = Bool()
   val wxd = Bool()
   val spike_info = if(SPIKE_OUTPUT) Some(new InstWriteBack) else None
+  //lalalala
 }
 
 object FPUCtrlFac{
