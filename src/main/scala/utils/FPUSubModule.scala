@@ -14,6 +14,11 @@ import chisel3.util._
 
 // end
 
+class InstWriteBack extends Bundle{
+  val pc = UInt(32.W)
+  val inst = UInt(32.W)
+}
+
 trait HasUIntToSIntHelper {
   implicit class UIntToSIntHelper(x: UInt) {
     def toSInt: SInt = Cat(0.U(1.W), x).asSInt
@@ -27,12 +32,13 @@ object EmptyFPUCtrl {
   def apply() = new EmptyFPUCtrl
 }
 
-class TestFPUCtrl(depth_warp: Int, softThread: Int) extends Bundle {
+class TestFPUCtrl(depth_warp: Int, softThread: Int, SPIKE_OUTPUT: Boolean = false) extends Bundle {
   val regIndex = UInt(5.W)
   val warpID = UInt(depth_warp.W)
   val vecMask = UInt(softThread.W)
   val wvd = Bool()
   val wxd = Bool()
+  val spike_info = if(SPIKE_OUTPUT) Some(new InstWriteBack) else None
 }
 
 object FPUCtrlFac{
